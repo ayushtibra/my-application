@@ -3,8 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.4.2",
+    "@material-ui/icons": "^4.4.1",
+    "axios": "^0.19.0",
+    "lazyload": "^2.0.0-rc.2",
+    "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-lazyload": "^2.6.2",
+    "react-loadable": "^5.5.0",
+    "react-moment": "^0.9.2",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
   },
   "scripts": {
