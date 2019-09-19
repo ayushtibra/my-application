@@ -26,7 +26,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://localhost:3001/db.json").then(res => {
+    axios.get("https://notification-infinite.herokuapp.com/db.json").then(res => {
       this.setState({
         notifications: res.data.notification
       });
