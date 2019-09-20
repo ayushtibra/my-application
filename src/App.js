@@ -1,22 +1,23 @@
 import React, { Component } from "react";
-import {
-  Layout,
-  Menu,
-  Breadcrumb,
-  Drawer,
-  Button,
-  Progress,
-  Badge,
-  Icon
-} from "antd";
+import { Layout, Menu, Drawer, Button, Badge, Icon, List } from "antd";
 import { FixedSizeList as VList } from "react-window";
-import Notification from "./Notification";
+import Notification from "./Components/Notification";
+import Bar from "./Components/bar";
+import BarChange from "./Components/barchange";
+import RoundBarChange from "./Components/roundbarchange";
 import axios from "axios";
 import "antd/dist/antd.css";
 import "./App.css";
 
 const { Header, Content, Footer } = Layout;
-const ButtonGroup = Button.Group;
+// const ButtonGroup = Button.Group;
+// const content = (
+//   <div>
+//     <p>Content</p>
+//     <p>Content</p>
+//   </div>
+// );
+
 class App extends Component {
   state = {
     notifications: [],
@@ -26,11 +27,16 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios.get("https://notification-infinite.herokuapp.com/db.json").then(res => {
-      this.setState({
-        notifications: res.data.notification
+    // http://localhost:3000/db.json
+    // https://notification-infinite.firebaseapp.com/db.json
+    // https://notification-infinite.herokuapp.com/db.json
+    axios
+      .get("https://notification-infinite.herokuapp.com/db.json")
+      .then(res => {
+        this.setState({
+          notifications: res.data.notification
+        });
       });
-    });
   }
 
   showDrawer = () => {
@@ -89,7 +95,6 @@ class App extends Component {
       <Layout className="layout">
         <Header style={{ height: "56px" }}>
           <div className="logo" />
-
           <Menu
             theme="dark"
             mode="horizontal"
@@ -117,33 +122,23 @@ class App extends Component {
               </Badge>
             </div>
 
-            <div className="bar">
-              <Progress percent={30} size="small" />
-              <Progress percent={50} size="small" status="active" />
-              <Progress percent={70} size="small" status="exception" />
-              <Progress percent={100} size="small" />
-              <Progress percent={50} size="small" showInfo={false} />
-            </div>
+            <Bar />
 
-            <div className="barChange">
-              <Progress type="circle" percent={this.state.percent} />
-              <ButtonGroup>
-                <Button onClick={this.decline} icon="minus" />
-                <Button onClick={this.increase} icon="plus" />
-              </ButtonGroup>
-            </div>
+            <RoundBarChange
+              percent={this.state.percent}
+              decline={this.decline}
+              increase={this.increase}
+            />
 
-            <div className="barChange1">
-              <Progress percent={this.state.percent1} />
-              <ButtonGroup className="btnGrp">
-                <Button onClick={this.decline1} icon="minus" />
-                <Button onClick={this.increase1} icon="plus" />
-              </ButtonGroup>
-            </div>
+            <BarChange
+              percent1={this.state.percent1}
+              decline1={this.decline1}
+              increase1={this.increase1}
+            />
 
             <Drawer
               className="drawer"
-              title="Notifications"
+              title="All Notifications"
               placement="right"
               closable
               onClose={this.onClose}
@@ -151,15 +146,18 @@ class App extends Component {
               getContainer={false}
               destroyOnClose={true}
             >
-              <VList
-                className="list"
-                height={window.innerHeight}
-                itemCount={this.state.notifications.length}
-                itemSize={95}
-                width={200}
-              >
-                {Row}
-              </VList>
+              <List>
+                <VList
+                  className="list"
+                  height={window.innerHeight}
+                  itemCount={this.state.notifications.length}
+                  itemSize={95}
+                  width={200}
+                >
+                  {Row}
+                  {/* {this.renderRow} */}
+                </VList>
+              </List>
             </Drawer>
           </div>
         </Content>
@@ -174,63 +172,37 @@ class App extends Component {
           Notification Wrapper - ©2019 - Created by Ayush
         </Footer>
       </Layout>
-
-      // <div className="main">
-      //   <p>Click Me</p>
-      //   <div style={{ marginTop: 16 }}>
-      //     <Button type="primary" onClick={this.showDrawer} className="btn">
-      //       Open
-      //     </Button>
-      //   </div>
-      //   <Drawer
-      //     className="draw"
-      //     title="Notifications"
-      //     placement="right"
-      //     closable
-      //     onClose={this.onClose}
-      //     visible={this.state.visible}
-      //     getContainer={false}
-      //     destroyOnClose={true}
-      //   >
-      //     <VList
-      //       className="list"
-      //       height={window.innerHeight}
-      //       itemCount={this.state.notifications.length}
-      //       itemSize={95}
-      //       width={200}
-      //     >
-      //       {Row}
-      //     </VList>
-      //   </Drawer>
-      // </div>
-
-      // <List
-      //   className="List"
-      //   height={window.innerHeight}
-      //   itemCount={this.state.notifications.length}
-      //   itemSize={95}
-      //   width={window.innerWidth}
-      // >
-      //   {Row}
-      // </List>
     );
   }
 }
 
 export default App;
 
-// import React, { Component } from "react";
-// import NavBar from "./notification";
-// import axios from "axios";
-// import List from "./list";
-// import classes from "./App.module.css";
-
-// const App = () => {
+// renderRow = ({ index, key, style }) => {
+//   const notification = this.state.notifications[index];
+//   // const props = {
+//   //   Title: notification.Title,
+//   //   Description: notification.Description,
+//   //   timestamp: notification.timestamp,
+//   //   Owner: notification.Owner
+//   // };
 //   return (
-//     <div className={classes.App}>
-//       <List numItems={1000} />
-//     </div>
+//     <List.Item key={key} style={style}>
+//       <List.Item.Meta
+//         avatar={<Avatar src="https://source.unsplash.com/random/300x300" />}
+//         title={notification.Title}
+//         description={
+//           notification.Description +
+//           " " +
+//           notification.Owner +
+//           " " +
+//           notification.timestamp
+//         }
+//       />
+//       <Popover content={content} trigger="click">
+//         <Icon type="more" />
+//       </Popover>
+//       {/* <Notification {...props} />; */}
+//     </List.Item>
 //   );
 // };
-
-// export default App;

@@ -2,6 +2,11 @@
   font-family: sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
 .logo {
   width: 160px;
   height: 26px;
@@ -26,18 +31,18 @@
 .bar {
   width: 20%;
   margin-top: 100px;
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
 .barChange {
-  margin-left: 45%;
+  margin-left: 78%;
   margin-top: -110px;
 }
 
 .barChange1 {
   width: 50%;
   margin-top: 70px;
-  margin-left: 50px;
+  margin-left: 28%;
 }
 
 .btnGrp {
@@ -52,14 +57,3 @@
 .list {
   /* background-color: aqua; */
 }
-
-/* style={{
-    height: 600,
-    overflow: "hidden",
-    position: "relative",
-    border: "1px solid #ebedf0",
-    borderRadius: 2,
-    // padding: 48,
-    // //textAlign: "center",
-    background: "#fafafa"
-  }} */
