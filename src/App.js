@@ -21,12 +21,12 @@ class App extends Component {
   state = {
     notifications: [],
     visible: false,
-    percent: 10,
-    percent1: 30
+    percent: 60,
+    percent1: 80
   };
 
   componentDidMount() {
-    axios.get("http://localhost:3001/db.json").then(res => {
+    axios.get("https://notification-infinite.herokuapp.com/db.json").then(res => {
       this.setState({
         notifications: res.data.notification
       });
@@ -64,16 +64,10 @@ class App extends Component {
 
   decline = () => {
     let percent = this.state.percent - 10;
-    let percent1 = this.state.percent1 - 10;
     if (percent < 0) {
       percent = 0;
     }
     this.setState({ percent });
-
-    if (percent1 < 0) {
-      percent1 = 0;
-    }
-    this.setState({ percent1 });
   };
 
   decline1 = () => {
@@ -99,7 +93,7 @@ class App extends Component {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={["1"]}
+            // defaultSelectedKeys={["1"]}
             style={{ lineHeight: "56px" }}
           >
             <Menu.Item key="1">Home</Menu.Item>
@@ -170,7 +164,13 @@ class App extends Component {
           </div>
         </Content>
 
-        <Footer style={{ textAlign: "center" }}>
+        <Footer
+          style={{
+            textAlign: "center",
+            backgroundColor: "black",
+            color: "white"
+          }}
+        >
           Notification Wrapper - ©2019 - Created by Ayush
         </Footer>
       </Layout>
